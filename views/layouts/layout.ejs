@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="/styles/main.css" />
     <title>YelpCamp</title>
   </head>
-  <body>
-    <main><%- body %></main>
+  <body class="flex flex-col h-screen">
+    <%- include ("../partials/navbar") %>
+    <main class="my-4"><%- body %></main>
+    <%- include ("../partials/footer") %>
   </body>
 </html>

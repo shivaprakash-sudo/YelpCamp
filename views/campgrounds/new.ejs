@@ -1,12 +1,17 @@
-<form action="/campgrounds" method="POST">
+<form action="/campgrounds" method="POST" class="mb-2">
   <div>
     <label for="title">Title</label>
-    <input type="text" id="title" name="campground[title]" />
+    <input type="text" id="title" name="campground[title]" class="input" />
   </div>
   <div>
     <label for="location">Location</label>
-    <input type="text" id="location" name="campground[location]" />
+    <input
+      type="text"
+      id="location"
+      name="campground[location]"
+      class="input"
+    />
   </div>
-  <button>Add Campground</button>
+  <button class="btn">Add Campground</button>
 </form>
-<a href="/campgrounds">All Campgrounds</a>
+<a href="/campgrounds" class="btn">Go to All Campgrounds</a>

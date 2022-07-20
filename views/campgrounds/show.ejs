@@ -1,12 +1,13 @@
 <h1 class="text-3xl underline"><%= campground.title %></h1>
-    <h2><%= campground.location %></h2>
-    <p> <a href="/campgrounds/<%=campground._id%>/edit">Edit</a>
-    </p>
-    <p>
-    <form action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
-        <button>Delete</button>
-    </form>
-    </p>
-    <footer>
-        <a href="/campgrounds">All Campgrounds</a>
-    </footer>
+<h2 class="mb-2"><%= campground.location %></h2>
+<a href="/campgrounds/<%=campground._id%>/edit" class="btn p-2 bg-gray-400"
+  >Edit</a
+>
+
+<form action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+  <button class="btn bg-red-600 hover:bg-red-800 text-white">Delete</button>
+</form>
+
+<footer>
+  <a href="/campgrounds" class="btn">Back to All Campgrounds</a>
+</footer>
