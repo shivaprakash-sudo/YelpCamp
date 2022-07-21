@@ -2,13 +2,14 @@
   "name": "YelpCamp",
   "version": "1.0.0",
   "description": "This is a full-stack project from Colt Steele's Web developer bootcamp.",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "devStart": "nodemon app.js",
-    "buildCSS": "postcss public/styles/tailwind.css -o public/styles/main.css"
+    "devStart": "npm run buildCSS && nodemon app.js",
+    "buildCSS": "postcss public/styles/tailwind.css -o public/styles/main.css",
+    "seedDB": "node seeds/index.js"
   },
   "repository": {
     "type": "git",

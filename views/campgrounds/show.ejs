@@ -1,5 +1,8 @@
-<h1 class="text-3xl underline"><%= campground.title %></h1>
+<h3 class="text-3xl"><%= campground.title %></h3>
+<span class="text-gray-500">£<%= campground.price %></span>
 <h2 class="mb-2"><%= campground.location %></h2>
+<img src="<%= campground.image %> " alt="Campground Image" />
+<p><%= campground.description %></p>
 <a href="/campgrounds/<%=campground._id%>/edit" class="btn p-2 bg-gray-400"
   >Edit</a
 >
@@ -8,6 +11,4 @@
   <button class="btn bg-red-600 hover:bg-red-800 text-white">Delete</button>
 </form>
 
-<footer>
-  <a href="/campgrounds" class="btn">Back to All Campgrounds</a>
-</footer>
+<a href="/campgrounds" class="btn">Back to All Campgrounds</a>
