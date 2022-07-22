@@ -599,6 +599,9 @@ video {
 .w-full {
   width: 100%;
 }
+.w-3\/4 {
+  width: 75%;
+}
 .flex-col {
   flex-direction: column;
 }
@@ -826,6 +829,10 @@ video {
   }
 }
 @media (min-width: 1024px) {
+
+  .lg\:w-1\/2 {
+    width: 50%;
+  }
 
   .lg\:text-lg {
     font-size: 1.125rem;
