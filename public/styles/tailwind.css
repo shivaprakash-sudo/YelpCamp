@@ -4,7 +4,7 @@
 
 @layer components {
   .btn {
-    @apply mt-3 mb-3 p-3 rounded-lg bg-orange-400 hover:bg-orange-700 text-white transition duration-300 ease-in-out;
+    @apply my-3 p-3 rounded-lg bg-orange-400 hover:bg-orange-700 text-white transition duration-300 ease-in-out;
   }
 
   .input {

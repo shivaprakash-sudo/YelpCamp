@@ -1,11 +1,37 @@
-<h3 class="text-3xl">All Campgrounds</h3>
-<div>
-  <a href="/campgrounds/new" class="btn">Add Campground</a>
-</div>
-<ul>
+<div class="md:max-w-4xl mx-auto">
+  <h3 class="text-3xl">All Campgrounds</h3>
+  <div>
+    <a href="/campgrounds/new" class="btn">Add Campground</a>
+  </div>
+
   <% for (let campground of campgrounds){%>
-  <li>
-    <a href="/campgrounds/<%= campground._id %>"><%= campground.title %></a>
-  </li>
+
+  <div class="flex justify-center">
+    <div
+      class="my-1 min-h-min md:flex md:max-w-xl rounded-lg bg-white shadow-lg"
+    >
+      <img
+        class="w-full sm:h-80 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg"
+        src="<%= campground.image %> "
+        alt="Camp Image"
+      />
+      <div class="p-6 flex flex-col justify-start">
+        <h5 class="text-gray-900 text-xl font-medium mb-2">
+          <a href="/campgrounds/<%= campground._id %>"
+            ><%= campground.title %></a
+          >
+        </h5>
+        <p class="text-gray-500 text-xs"><%= campground.location %></p>
+        <p class="text-gray-700 text-base mb-4">
+          <%= campground.description %>
+        </p>
+
+        <a href="/campgrounds/<%= campground._id %>" class="btn mb-0"
+          >Visit <%= campground.title %>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <% }%>
-</ul>
+</div>
