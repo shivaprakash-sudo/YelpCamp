@@ -1,17 +1,66 @@
-<form action="/campgrounds" method="POST" class="mb-2">
-  <div>
-    <label for="title">Title</label>
-    <input type="text" id="title" name="campground[title]" class="input" />
+<div class="flex justify-center">
+  <div class="p-3">
+    <form
+      action="/campgrounds"
+      method="POST"
+      class="mb-2 flex flex-col justify-center"
+    >
+      <div class="flex flex-col">
+        <label for="title">Camp Title</label>
+        <input
+          type="text"
+          id="title"
+          name="campground[title]"
+          class="input my-2"
+          placeholder="Elk Creekside"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="location">Camp Location</label>
+        <input
+          type="text"
+          id="location"
+          name="campground[location]"
+          class="input my-2"
+          placeholder="Peoria, Illinois"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="image">Image URL</label>
+        <input
+          type="text"
+          id="image"
+          name="campground[image]"
+          class="input my-2"
+          placeholder="Image Link"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="price">Campground Price</label>
+        <input
+          type="text"
+          id="price"
+          name="campground[price]"
+          class="input my-2"
+          placeholder="£0.00"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="description">Description</label>
+        <textarea
+          type="text"
+          id="description"
+          name="campground[description]"
+          class="input my-2 h-40"
+          placeholder="Write something about the camp here."
+        ></textarea>
+      </div>
+      <div class="text-center">
+        <button class="btn">Add Campground</button>
+      </div>
+    </form>
+    <div class="text-center">
+      <a href="/campgrounds" class="btn">Go to All Campgrounds</a>
+    </div>
   </div>
-  <div>
-    <label for="location">Location</label>
-    <input
-      type="text"
-      id="location"
-      name="campground[location]"
-      class="input"
-    />
-  </div>
-  <button class="btn">Add Campground</button>
-</form>
-<a href="/campgrounds" class="btn">Go to All Campgrounds</a>
+</div>

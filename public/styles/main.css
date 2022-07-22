@@ -513,10 +513,10 @@ video {
   margin-bottom: 0.75rem;
   border-radius: 0.5rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity));
   padding: 0.75rem;
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity));
   transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
@@ -525,7 +525,7 @@ video {
 }
 .btn:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(194 65 12 / var(--tw-bg-opacity));
+  background-color: rgb(234 88 12 / var(--tw-bg-opacity));
 }
 .input {
   border-radius: 0.5rem;
@@ -559,6 +559,10 @@ video {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 .mx-5 {
   margin-left: 1.25rem;
   margin-right: 1.25rem;
@@ -580,6 +584,9 @@ video {
 }
 .flex {
   display: flex;
+}
+.h-40 {
+  height: 10rem;
 }
 .h-screen {
   height: 100vh;
@@ -647,6 +654,9 @@ video {
 }
 .p-6 {
   padding: 1.5rem;
+}
+.p-3 {
+  padding: 0.75rem;
 }
 .p-2 {
   padding: 0.5rem;
