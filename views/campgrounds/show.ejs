@@ -1,16 +1,36 @@
-<div class="md:w-4/6 mx-auto">
-  <h3 class="text-2xl"><%= campground.title %></h3>
-  <span class="text-gray-500">£<%= campground.price %></span>
-  <h2 class="mb-2"><%= campground.location %></h2>
-  <img src="<%= campground.image %> " alt="Campground Image" />
-  <p><%= campground.description %></p>
-  <a href="/campgrounds/<%=campground._id%>/edit" class="btn p-2 bg-gray-400"
-    >Edit</a
-  >
-
-  <form action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
-    <button class="btn bg-red-600 hover:bg-red-800 text-white">Delete</button>
-  </form>
-
+<div class="flex justify-center mb-5">
+  <div class="rounded-lg shadow-lg bg-white max-w-sm">
+    <a href="#!">
+      <img
+        class="rounded-t-lg"
+        src="<%= campground.image %> "
+        alt="<%= campground.title %> image "
+      />
+    </a>
+    <div class="p-6">
+      <h5 class="text-gray-900 text-xl font-medium mb-2">
+        <%= campground.title %>
+      </h5>
+      <span class="mb-2 text-gray-500"><%= campground.location %></span>
+      <span class="mx-2">|</span>
+      <span class="text-gray-600">£<%= campground.price %>/night</span>
+      <p class="text-gray-700 text-base my-3"><%= campground.description %></p>
+      <div class="flex items-center justify-between">
+        <a href="/campgrounds/<%=campground._id%>/edit" class="btn bg-gray-400"
+          >Edit</a
+        >
+        <form
+          action="/campgrounds/<%=campground._id%>?_method=DELETE"
+          method="POST"
+        >
+          <button class="btn bg-red-600 hover:bg-red-800 text-white">
+            Delete
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-center">
   <a href="/campgrounds" class="btn">Back to All Campgrounds</a>
 </div>
