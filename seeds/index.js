@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { cities } from "./cities.js";
 import { places, descriptors } from "./seedHelpers.js";
 import Campground from "../models/campground.js";
+import Review from "../models/review.js";
 
 mongoose
     .connect("mongodb://localhost/yelp-camp", {
@@ -18,6 +19,7 @@ mongoose
 
 const seedDb = async () => {
     await Campground.deleteMany({});
+    await Review.deleteMany({});
 
     const sample = array => array[Math.floor(Math.random() * array.length)];
 

@@ -1,5 +1,5 @@
-<div class="flex justify-center mb-5">
-  <div class="rounded-lg shadow-lg bg-white max-w-sm">
+<div class="md:flex justify-center mb-5">
+  <div class="mx-auto mb-5 rounded-lg shadow-lg bg-white max-w-sm md:mb-2">
     <a href="#!">
       <img
         class="rounded-t-lg"
@@ -28,6 +28,66 @@
           </button>
         </form>
       </div>
+    </div>
+  </div>
+  <div class="mx-auto">
+    <h3 class="text-xl font-semibold mt-3 mb-2 md:mt-0">Leave a Review</h3>
+    <hr class="hr" />
+    <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
+      <div class="mb-4 flex items-center gap-2">
+        <label for="rating">Rating</label>
+        <input
+          type="range"
+          min="1"
+          max="5"
+          name="review[rating]"
+          id="rating"
+          required
+        />
+      </div>
+      <div class="mb-3 flex items-center gap-2">
+        <label class="self-start" for="review-body">Review</label>
+        <textarea
+          name="review[body]"
+          id="review-body"
+          cols="30"
+          rows="5"
+          class="border border-1 border-gray-500 rounded-lg"
+        ></textarea>
+      </div>
+      <div class="text-center">
+        <button class="btn bg-yellow-400 hover:bg-yellow-500">
+          Submit Review
+        </button>
+      </div>
+    </form>
+    <div>
+      <h3 class="text-xl font-semibold mt-3 mb-2 md:mt-0">All Reviews</h3>
+      <hr class="hr" />
+      <% if (!campground.reviews.length) { %>
+      <div class="text-center mb-3">
+        <span class="text-lg text-gray-400">Wow, Such empty campground!</span>
+      </div>
+      <% } else { %> <% campground.reviews.map( review => {%>
+      <div class="md:flex justify-center mb-5">
+        <div class="p-3 mx-auto mb-3 rounded-lg shadow-lg bg-white max-w-sm">
+          <p class="mb-2">
+            <span class="font-semibold">Rating:</span> <%= review.rating %>
+          </p>
+          <p class="my-3">
+            <span class="font-semibold">Review:</span> <%= review.body %>
+          </p>
+          <form
+            action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+            method="POST"
+          >
+            <button class="btn bg-red-600 hover:bg-red-800 text-white">
+              Delete Review
+            </button>
+          </form>
+        </div>
+      </div>
+      <% }) %> <% } %>
     </div>
   </div>
 </div>

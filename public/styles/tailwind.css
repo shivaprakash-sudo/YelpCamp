@@ -14,4 +14,8 @@
   .link {
     @apply hover:text-gray-700 transition duration-300 ease-in-out;
   }
+
+  .hr {
+    @apply w-full bg-gray-500 rounded-full mb-3;
+  }
 }
