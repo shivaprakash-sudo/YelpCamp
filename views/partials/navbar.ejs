@@ -16,5 +16,13 @@
         <a href="/campgrounds/new" class="link transition">New Campground</a>
       </li>
     </ul>
+    <ul class="flex gap-5 items-center justify-evenly">
+      <% if(!currentUser){ %>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Signup</a></li>
+      <% } else { %>
+      <li><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
   </nav>
 </header>

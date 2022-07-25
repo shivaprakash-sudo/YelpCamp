@@ -5,6 +5,7 @@ import Campground from "../models/campground.js";
 import catchAsync from "../utils/catchAsync.js";
 import ExpressError from "../utils/ExpressError.js";
 import { campgroundSchema } from "../schemas.js";
+import isLoggedIn from "../middleware.js";
 
 // create express router
 const router = express.Router();
@@ -50,7 +51,7 @@ router.get('/:id', catchAsync(async (req, res,) => {
 }));
 
 // campground edit page
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     if (!campground) {
         req.flash("error", "Sorry, we can't find that campground.");
@@ -60,7 +61,7 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
 }));
 
 // update campground data
-router.put('/:id', validateCampground, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, validateCampground, catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
     req.flash('success', 'Successfully updated the campground!');
@@ -68,7 +69,7 @@ router.put('/:id', validateCampground, catchAsync(async (req, res) => {
 }));
 
 // delete campground data
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id', isLoggedIn, catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted the campground!');
