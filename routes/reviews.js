@@ -3,28 +3,17 @@ import express from "express";
 import Review from "../models/review.js";
 import Campground from "../models/campground.js";
 import catchAsync from "../utils/catchAsync.js";
-import { reviewSchema } from "../schemas.js";
-import ExpressError from "../utils/ExpressError.js";
+import { validateReview, isLoggedIn, isReviewAuthor } from '../middleware.js';
 
-// create express router
+// create express router with params merged
 const router = express.Router({ mergeParams: true });
 
-// validate review using Joi
-const validateReview = (req, res, next) => {
-    const { error } = reviewSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400);
-    } else {
-        next();
-    }
-};
-
 // create new review and push it to campground data
-router.post('/', validateReview, catchAsync(async (req, res) => {
+router.post('/', isLoggedIn, validateReview, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
 
+    review.author = req.user._id;
     campground.reviews.push(review);
 
     await review.save();
@@ -34,7 +23,7 @@ router.post('/', validateReview, catchAsync(async (req, res) => {
 }));
 
 // delete review and it's reference in the campground
-router.delete('/:reviewId', catchAsync(async (req, res) => {
+router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await Campground.findByIdAndUpdate(id, {
         $pull: { reviews: reviewId }

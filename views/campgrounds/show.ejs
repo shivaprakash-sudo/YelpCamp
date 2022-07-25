@@ -7,6 +7,10 @@
         alt="<%= campground.title %> image "
       />
     </a>
+    <div class="text-gray-500 py-3 px-6 border-b border-gray-300">
+      <span class="font-semibold">Added by:</span> <%=
+      campground.author.username %>
+    </div>
     <div class="p-6">
       <h5 class="text-gray-900 text-xl font-medium mb-2">
         <%= campground.title %>
@@ -15,6 +19,8 @@
       <span class="mx-2">|</span>
       <span class="text-gray-600">£<%= campground.price %>/night</span>
       <p class="text-gray-700 text-base my-3"><%= campground.description %></p>
+
+      <% if (currentUser && campground.author.equals(currentUser._id)) {%>
       <div class="flex items-center justify-between">
         <a href="/campgrounds/<%=campground._id%>/edit" class="btn bg-gray-400"
           >Edit</a
@@ -28,11 +34,23 @@
           </button>
         </form>
       </div>
+      <% } %>
     </div>
   </div>
   <div class="mx-auto">
     <h3 class="text-xl font-semibold mt-3 mb-2 md:mt-0">Leave a Review</h3>
     <hr class="hr" />
+    <% if (!currentUser) {%>
+    <div class="text-center mb-3">
+      <span class="text-lg text-gray-400"
+        >Please
+        <a href="/login" class="underline hover:text-orange-500"
+          ><em>login</em></a
+        >
+        to leave a review.</span
+      >
+    </div>
+    <% } else { %>
     <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
       <div class="mb-4 flex items-center gap-2">
         <label for="rating">Rating</label>
@@ -61,6 +79,7 @@
         </button>
       </div>
     </form>
+    <% } %>
     <div>
       <h3 class="text-xl font-semibold mt-3 mb-2 md:mt-0">All Reviews</h3>
       <hr class="hr" />
@@ -72,11 +91,16 @@
       <div class="md:flex justify-center mb-5">
         <div class="p-3 mx-auto mb-3 rounded-lg shadow-lg bg-white max-w-sm">
           <p class="mb-2">
+            <span class="font-semibold">Author:</span> <%=
+            review.author.username %>
+          </p>
+          <p class="mb-2">
             <span class="font-semibold">Rating:</span> <%= review.rating %>
           </p>
           <p class="my-3">
             <span class="font-semibold">Review:</span> <%= review.body %>
           </p>
+          <% if (currentUser && review.author.equals(currentUser._id)) {%>
           <form
             action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
             method="POST"
@@ -85,6 +109,7 @@
               Delete Review
             </button>
           </form>
+          <% } %>
         </div>
       </div>
       <% }) %> <% } %>
