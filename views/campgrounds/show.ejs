@@ -52,7 +52,7 @@
     </div>
     <% } else { %>
     <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
-      <div class="mb-4 flex items-center gap-2">
+      <!-- <div class="mb-4 flex items-center gap-2">
         <label for="rating">Rating</label>
         <input
           type="range"
@@ -62,7 +62,36 @@
           id="rating"
           required
         />
-      </div>
+      </div> -->
+      <fieldset class="flex starability-basic">
+        <legend>Rating:</legend>
+        <input
+          type="radio"
+          id="no-rate"
+          class="input-no-rate"
+          name="review[rating]"
+          value="0"
+          checked
+          aria-label="No rating."
+        />
+
+        <input type="radio" id="rate1" name="review[rating]" value="1" />
+        <label for="rate1">1 star.</label>
+
+        <input type="radio" id="rate2" name="review[rating]" value="2" />
+        <label for="rate2">2 stars.</label>
+
+        <input type="radio" id="rate3" name="review[rating]" value="3" />
+        <label for="rate3">3 stars.</label>
+
+        <input type="radio" id="rate4" name="review[rating]" value="4" />
+        <label for="rate4">4 stars.</label>
+
+        <input type="radio" id="rate5" name="review[rating]" value="5" />
+        <label for="rate5">5 stars.</label>
+
+        <span class="starability-focus-ring"></span>
+      </fieldset>
       <div class="mb-3 flex items-center gap-2">
         <label class="self-start" for="review-body">Review</label>
         <textarea
@@ -70,7 +99,7 @@
           id="review-body"
           cols="30"
           rows="5"
-          class="border border-1 border-gray-500 rounded-lg"
+          class="border border-1 border-gray-500 rounded-lg focus:outline-none"
         ></textarea>
       </div>
       <div class="text-center">
@@ -89,16 +118,21 @@
       </div>
       <% } else { %> <% campground.reviews.map( review => {%>
       <div class="md:flex justify-center mb-5">
-        <div class="p-3 mx-auto mb-3 rounded-lg shadow-lg bg-white max-w-sm">
+        <div
+          class="p-3 mx-auto mb-3 rounded-lg shadow-lg bg-white w-full max-w-sm"
+        >
           <p class="mb-2">
-            <span class="font-semibold">Author:</span> <%=
+            <span class="font-semibold mr-1">Author:</span> <%=
             review.author.username %>
           </p>
-          <p class="mb-2">
-            <span class="font-semibold">Rating:</span> <%= review.rating %>
-          </p>
+          <div class="flex items-center gap-2">
+            <span class="font-semibold">Rating:</span>
+            <p class="starability-result" data-rating="<%= review.rating %>">
+              Rated: <%= review.rating %> stars
+            </p>
+          </div>
           <p class="my-3">
-            <span class="font-semibold">Review:</span> <%= review.body %>
+            <span class="font-semibold mr-1">Review:</span> <%= review.body %>
           </p>
           <% if (currentUser && review.author.equals(currentUser._id)) {%>
           <form
