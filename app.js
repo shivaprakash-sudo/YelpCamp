@@ -1,15 +1,16 @@
+// import necessary modules
 import express from 'express';
 import expressLayouts from 'express-ejs-layouts';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import Campground from "./models/campground.js";
-import { campgroundSchema, reviewSchema } from "./schemas.js";
-import Review from "./models/review.js";
 import methodOverride from "method-override";
-import catchAsync from "./utils/catchAsync.js";
 import ExpressError from "./utils/ExpressError.js";
+import campRouter from './routes/campgrounds.js';
+import reviewRouter from "./routes/reviews.js";
+import session from 'express-session';
+import flash from "connect-flash";
 
 // checks to see if development dependencies are required or not
 if (process.env.NODE_ENV != "production") {
@@ -19,19 +20,11 @@ if (process.env.NODE_ENV != "production") {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// create an express app
 const app = express();
 const PORT = 3000;
 
-app.set("view engine", "ejs");
-app.set("views", __dirname + "/views");
-app.set("layout", "layouts/layout");
-
-app.use(expressLayouts);
-app.use(express.static("public"));
-app.use(methodOverride("_method"));
-app.use(express.urlencoded({ extended: true }));
-
-// database connection
+// establish database connection and listen for server requests
 mongoose
     .connect(process.env.DATABASE_URL, {
         useNewUrlParser: true,
@@ -47,91 +40,48 @@ mongoose
         console.log(err);
     });
 
-const validateCampground = (req, res, next) => {
-    const { error } = campgroundSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400);
-    } else {
-        next();
+
+// set views to the app
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
+app.set("layout", "layouts/layout");
+
+// use necessary modules for the app
+app.use(expressLayouts);
+app.use(express.static("public"));
+app.use(methodOverride("_method"));
+app.use(express.urlencoded({ extended: true }));
+
+// create session config values and use them
+const sessionConfig = {
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
     }
 };
+app.use(session(sessionConfig));
 
-const validateReview = (req, res, next) => {
-    const { error } = reviewSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400);
-    } else {
-        next();
-    }
-};
+// use connect-flash to alert success or error messages
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+});
+
+// use campgrounds and reviews routers
+app.use("/campgrounds", campRouter);
+app.use("/campgrounds/:id/reviews", reviewRouter);
 
 
+// home page 
 app.get("/", (req, res) => {
     res.render("home");
 });
-
-// campgrounds
-
-app.get('/campgrounds', catchAsync(async (req, res) => {
-    const campgrounds = await Campground.find({});
-    res.render('campgrounds/index', { campgrounds })
-}));
-
-app.get('/campgrounds/new', (req, res) => {
-    res.render('campgrounds/new');
-});
-
-app.post('/campgrounds', validateCampground, catchAsync(async (req, res) => {
-    const campground = new Campground(req.body.campground);
-    await campground.save();
-    res.redirect(`/campgrounds/${campground._id}`)
-}));
-
-app.get('/campgrounds/:id', catchAsync(async (req, res,) => {
-    const campground = await Campground.findById(req.params.id).populate("reviews");
-    res.render('campgrounds/show', { campground });
-}));
-
-app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id)
-    res.render('campgrounds/edit', { campground });
-}));
-
-app.put('/campgrounds/:id', validateCampground, catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
-    res.redirect(`/campgrounds/${campground._id}`)
-}));
-
-app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await Campground.findByIdAndDelete(id);
-    res.redirect('/campgrounds');
-}));
-
-// reviews 
-
-app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
-    const review = new Review(req.body.review);
-
-    campground.reviews.push(review);
-
-    await review.save();
-    await campground.save();
-    res.redirect(`/campgrounds/${campground._id}`);
-}));
-
-app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync(async (req, res) => {
-    const { id, reviewId } = req.params;
-    await Campground.findByIdAndUpdate(id, {
-        $pull: { reviews: reviewId }
-    });
-    await Review.findByIdAndDelete(reviewId);
-    res.redirect(`/campgrounds/${id}`);
-}));
 
 // error handling
 

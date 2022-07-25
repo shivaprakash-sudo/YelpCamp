@@ -1,0 +1,17 @@
+<div class="text-center">
+  <% if(success && success.length) {%>
+  <div class="mb-3 text-green-700">
+    <%= success %>
+    <button type="button" class="btn">
+      <span>&times;</span>
+    </button>
+  </div>
+  <% } %> <% if(error && error.length) {%>
+  <div class="mb-3 text-red-700">
+    <%= error %>
+    <button type="button" class="btn">
+      <span>&times;</span>
+    </button>
+  </div>
+  <% } %>
+</div>
