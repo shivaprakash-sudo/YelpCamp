@@ -1,12 +1,19 @@
 <div class="md:flex justify-center mb-5">
   <div class="mx-auto mb-5 rounded-lg shadow-lg bg-white max-w-sm md:mb-2">
-    <div>
+    <!-- carousel slider -->
+    <div
+      id="thumbnail-slider"
+      class="mb-12 lg:mb-6 nav-inset-button carousel"
+      data-flickity='{ "cellAlign": "left", "wrapAround": true, "draggable": false, "prevNextButtons": true , "imagesLoaded": true }'
+    >
       <% campground.images.forEach(image=>{ %>
-      <img
-        class="rounded-t-lg"
-        src="<%= image.path %> "
-        alt="<%= campground.title %> image "
-      />
+      <div class="carousel-cell max-w-full w-full mr-2 rounded-lg">
+        <img
+          alt="<%= campground.title %> image"
+          class="w-full h-auto max-w-auto"
+          src="<%= image.path %>"
+        />
+      </div>
       <% }) %>
     </div>
 
@@ -55,17 +62,6 @@
     </div>
     <% } else { %>
     <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
-      <!-- <div class="mb-4 flex items-center gap-2">
-        <label for="rating">Rating</label>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          name="review[rating]"
-          id="rating"
-          required
-        />
-      </div> -->
       <fieldset class="flex starability-basic">
         <legend>Rating:</legend>
         <input
@@ -156,3 +152,6 @@
 <div class="text-center">
   <a href="/campgrounds" class="btn">Back to All Campgrounds</a>
 </div>
+
+<!-- Flickity Carousel JavaScript -->
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
