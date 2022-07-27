@@ -29,21 +29,7 @@
           required
         />
       </div>
-      <div class="flex flex-col mb-3">
-        <label for="image">Campground Image</label>
-        <input type="file" name="image" id="image" class="mt-2" multiple />
-      </div>
-      <!-- <div class="flex flex-col">
-        <label for="image">Image URL</label>
-        <input
-          type="text"
-          id="image"
-          name="campground[image]"
-          class="input my-2"
-          placeholder="Image Link"
-          required
-        />
-      </div> -->
+
       <div class="flex flex-col mb-3">
         <label for="price">Campground Price</label>
         <input
@@ -66,6 +52,17 @@
           required
         ></textarea>
       </div>
+      <div class="flex flex-col mb-3">
+        <label for="image">Campground Image</label>
+        <input
+          type="file"
+          name="image"
+          id="image"
+          class="mt-2 w-full border border-gray-600 p-2 rounded-lg focus:outline-none"
+          multiple
+        />
+        <div id="image-names" class="text-green-500"></div>
+      </div>
       <div class="text-center">
         <button class="btn">Add Campground</button>
       </div>
@@ -75,3 +72,6 @@
     </div>
   </div>
 </div>
+
+<!-- file input control -->
+<script src="/js/fileInputControl.js"></script>

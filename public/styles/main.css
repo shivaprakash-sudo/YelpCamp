@@ -529,6 +529,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(234 88 12 / var(--tw-bg-opacity));
 }
+.btn:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
 .input {
   border-radius: 0.5rem;
   border-width: 1px;
@@ -590,17 +594,17 @@ video {
 .mb-2 {
   margin-bottom: 0.5rem;
 }
-.mb-4 {
-  margin-bottom: 1rem;
-}
-.mb-0 {
-  margin-bottom: 0px;
-}
 .mb-3 {
   margin-bottom: 0.75rem;
 }
 .mt-2 {
   margin-top: 0.5rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-0 {
+  margin-bottom: 0px;
 }
 .mb-5 {
   margin-bottom: 1.25rem;
@@ -689,6 +693,14 @@ video {
 .border-b {
   border-bottom-width: 1px;
 }
+.border-gray-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(75 85 99 / var(--tw-border-opacity));
+}
+.border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -697,13 +709,12 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(107 114 128 / var(--tw-border-opacity));
 }
-.border-black {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
 .border-orange-600 {
   --tw-border-opacity: 1;
   border-color: rgb(234 88 12 / var(--tw-border-opacity));
+}
+.bg-transparent {
+  background-color: transparent;
 }
 .bg-white {
   --tw-bg-opacity: 1;
@@ -735,6 +746,9 @@ video {
 }
 .p-3 {
   padding: 0.75rem;
+}
+.p-2 {
+  padding: 0.5rem;
 }
 .p-6 {
   padding: 1.5rem;
@@ -806,6 +820,10 @@ video {
   --tw-text-opacity: 1;
   color: rgb(113 63 18 / var(--tw-text-opacity));
 }
+.text-green-500 {
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
 .text-gray-900 {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
@@ -849,6 +867,10 @@ video {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+.hover\:border-orange-500:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(249 115 22 / var(--tw-border-opacity));
 }
 .hover\:bg-red-800:hover {
   --tw-bg-opacity: 1;

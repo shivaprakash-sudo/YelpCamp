@@ -30,10 +30,7 @@
           required
         />
       </div>
-      <div class="flex flex-col mb-3">
-        <label for="image">Add more images</label>
-        <input type="file" name="image" id="image" class="mt-2" multiple />
-      </div>
+
       <div class="flex flex-col mb-3">
         <label for="price">Campground Price</label>
         <input
@@ -57,14 +54,28 @@
 <%= campground.description %> </textarea
         >
       </div>
-      <div class="text-center">
+      <div class="flex flex-col mb-3">
+        <label for="image">Add more images</label>
+        <input
+          type="file"
+          name="image"
+          id="image"
+          class="mt-2 w-full border border-gray-600 p-2 rounded-lg focus:outline-none"
+          multiple
+        />
+        <div id="image-names" class="text-green-500"></div>
+      </div>
+      <div class="flex justify-between items-center">
+        <a
+          href="/campgrounds/<%= campground._id%>"
+          class="btn bg-transparent border border-black hover:border-orange-500"
+          >Back to Campground</a
+        >
         <button class="btn">Update Campground</button>
       </div>
     </form>
-    <div class="text-center">
-      <a href="/campgrounds/<%= campground._id%>" class="btn"
-        >Back to Campground</a
-      >
-    </div>
   </div>
 </div>
+
+<!-- file input control -->
+<script src="/js/fileInputControl.js"></script>
