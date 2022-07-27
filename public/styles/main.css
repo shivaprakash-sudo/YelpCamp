@@ -916,8 +916,8 @@ video {
     height: auto;
   }
 
-  .md\:w-48 {
-    width: 12rem;
+  .md\:w-56 {
+    width: 14rem;
   }
 
   .md\:max-w-4xl {

@@ -54,6 +54,16 @@ const editCampgroundForm = catchAsync(async (req, res) => {
 const updateCampground = catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
+
+    req.files.forEach(file => {
+        const image = {
+            path: file.path,
+            fileName: file.filename
+        };
+        campground.images.push(image);
+    });
+    await campground.save();
+
     req.flash('success', 'Successfully updated the campground!');
     res.redirect(`/campgrounds/${campground._id}`)
 });

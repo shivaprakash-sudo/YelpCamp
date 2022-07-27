@@ -23,7 +23,7 @@ router.get('/new', isLoggedIn, newCampgroundForm);
 // route for showing, updating and deleting campgrounds
 router.route("/:id")
     .get(showCampground)
-    .put(isLoggedIn, isAuthor, validateCampground, updateCampground)
+    .put(isLoggedIn, isAuthor, upload.array("image"), validateCampground, updateCampground)
     .delete(isLoggedIn, isAuthor, deleteCampground);
 
 // campground edit page
