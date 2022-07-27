@@ -1,3 +1,8 @@
+// checks to see if development dependencies are required or not
+if (process.env.NODE_ENV !== "production") {
+    dotenv.config();
+}
+
 // import necessary modules
 import express from 'express';
 import expressLayouts from 'express-ejs-layouts';
@@ -18,10 +23,7 @@ import campRouter from './routes/campgrounds.js';
 import reviewRouter from "./routes/reviews.js";
 import userRouter from "./routes/users.js";
 
-// checks to see if development dependencies are required or not
-if (process.env.NODE_ENV != "production") {
-    dotenv.config();
-}
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -107,5 +109,6 @@ app.all("*", (req, res, next) => {
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
     if (!err.message) err.message = "Something's wrong, I can feel it";
+    console.log(JSON.stringify(err));
     res.status(statusCode).render("error", { err });
 });

@@ -1,12 +1,15 @@
 <div class="md:flex justify-center mb-5">
   <div class="mx-auto mb-5 rounded-lg shadow-lg bg-white max-w-sm md:mb-2">
-    <a href="#!">
+    <div>
+      <% campground.images.forEach(image=>{ %>
       <img
         class="rounded-t-lg"
-        src="<%= campground.image %> "
+        src="<%= image.path %> "
         alt="<%= campground.title %> image "
       />
-    </a>
+      <% }) %>
+    </div>
+
     <div class="text-gray-500 py-3 px-6 border-b border-gray-300">
       <span class="font-semibold">Added by:</span> <%=
       campground.author.username %>

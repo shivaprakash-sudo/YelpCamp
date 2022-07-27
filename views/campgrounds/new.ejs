@@ -5,9 +5,10 @@
       action="/campgrounds"
       method="POST"
       class="mb-2 flex flex-col justify-center"
+      enctype="multipart/form-data"
     >
-      <div class="flex flex-col">
-        <label for="title">Camp Title</label>
+      <div class="flex flex-col mb-3">
+        <label for="title">Campground Title</label>
         <input
           type="text"
           id="title"
@@ -17,8 +18,8 @@
           required
         />
       </div>
-      <div class="flex flex-col">
-        <label for="location">Camp Location</label>
+      <div class="flex flex-col mb-3">
+        <label for="location">Campground Location</label>
         <input
           type="text"
           id="location"
@@ -28,7 +29,11 @@
           required
         />
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col mb-3">
+        <label for="image">Campground Image</label>
+        <input type="file" name="image" id="image" class="mt-2" multiple />
+      </div>
+      <!-- <div class="flex flex-col">
         <label for="image">Image URL</label>
         <input
           type="text"
@@ -38,8 +43,8 @@
           placeholder="Image Link"
           required
         />
-      </div>
-      <div class="flex flex-col">
+      </div> -->
+      <div class="flex flex-col mb-3">
         <label for="price">Campground Price</label>
         <input
           type="text"
@@ -50,7 +55,7 @@
           required
         />
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col mb-3">
         <label for="description">Description</label>
         <textarea
           type="text"
