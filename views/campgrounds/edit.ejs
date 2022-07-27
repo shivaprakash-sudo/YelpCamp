@@ -66,13 +66,13 @@
         <div id="image-names" class="text-green-500"></div>
       </div>
       <div class="mb-3">
-        <span class="font-semibold"
+        <span class="font-semibold mb-2"
           ><em>Tick the box to delete an exisiting image</em></span
         >
-        <div class="flex flex-wrap">
+        <div class="flex gap-3 flex-wrap">
           <% campground.images.forEach((img, i)=>{%>
-          <div class="basis-full md:flex-1">
-            <img src="<%=img.path%>" alt="camp image" />
+          <div>
+            <img src="<%=img.thumbnail%>" alt="camp image" />
             <label for="image-<%= i %>">Delete?</label>
             <input
               type="checkbox"
@@ -84,13 +84,15 @@
           <%}) %>
         </div>
       </div>
-      <div class="flex justify-between items-center">
-        <a
-          href="/campgrounds/<%= campground._id%>"
-          class="btn bg-transparent border border-black hover:border-orange-500"
-          >Back to Campground</a
-        >
-        <button class="btn">Update Campground</button>
+      <div class="text-center md:flex justify-between items-center">
+        <div><button class="btn">Update Campground</button></div>
+        <div class="my-3">
+          <a
+            href="/campgrounds/<%= campground._id%>"
+            class="btn bg-transparent border border-black hover:border-orange-500"
+            >Back to Campground</a
+          >
+        </div>
       </div>
     </form>
   </div>
