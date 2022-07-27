@@ -1,5 +1,6 @@
 import Campground from "../models/campground.js";
 import catchAsync from "../utils/catchAsync.js";
+import { cloudinary } from '../cloudinary/index.js';
 
 const index = catchAsync(async (req, res) => {
     const campgrounds = await Campground.find({}).sort({ $natural: -1 });
@@ -63,6 +64,21 @@ const updateCampground = catchAsync(async (req, res) => {
         campground.images.push(image);
     });
     await campground.save();
+
+    if (req.body.deleteImages) {
+        await campground.updateOne({
+            $pull: {
+                images: {
+                    fileName: {
+                        $in: req.body.deleteImages
+                    }
+                }
+            }
+        });
+        req.body.deleteImages.forEach(file => {
+            cloudinary.uploader.destroy(file, (err, result) => console.log(result, err));
+        });
+    }
 
     req.flash('success', 'Successfully updated the campground!');
     res.redirect(`/campgrounds/${campground._id}`)
