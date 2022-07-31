@@ -1,4 +1,4 @@
-<div class="md:flex justify-center mb-5">
+<div class="lg:flex mb-5">
   <div class="mx-auto mb-5 rounded-lg shadow-lg bg-white max-w-sm md:mb-2">
     <!-- carousel slider -->
     <div
@@ -47,7 +47,10 @@
       <% } %>
     </div>
   </div>
-  <div class="mx-auto">
+
+  <div class="mx-auto md:w-3/4 lg:w-1/2">
+    <!-- map container -->
+    <div id="map" class="w-full h-[300px] m-3 lg:mt-0 mx-auto"></div>
     <h3 class="text-xl font-semibold mt-3 mb-2 md:mt-0">Leave a Review</h3>
     <hr class="hr" />
     <% if (!currentUser) {%>
@@ -91,7 +94,7 @@
 
         <span class="starability-focus-ring"></span>
       </fieldset>
-      <div class="mb-3 flex items-center gap-2">
+      <div class="my-3 flex items-center gap-2">
         <label class="self-start" for="review-body">Review</label>
         <textarea
           name="review[body]"
@@ -155,3 +158,13 @@
 
 <!-- Flickity Carousel JavaScript -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+<!-- mapbox -->
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+
+<script>
+  const mapToken =  "<%- process.env.MAPBOX_ACCESS_TOKEN %>";
+  const campground = <%- JSON.stringify(campground) %>;
+</script>
+
+<script src="/js/showMap.js"></script>
