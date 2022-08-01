@@ -8,6 +8,9 @@ const map = new mapboxgl.Map({
     projection: "globe" //display map as 3D globe
 });
 
+// add zoom controls to the map
+map.addControl(new mapboxgl.NavigationControl());
+
 new mapboxgl.Marker()
     .setLngLat(campground.geometry.coordinates)
     .setPopup(

@@ -1,160 +1,166 @@
-<div class="lg:flex mb-5">
-  <div class="mx-auto mb-5 rounded-lg shadow-lg bg-white max-w-sm md:mb-2">
-    <!-- carousel slider -->
-    <div
-      id="thumbnail-slider"
-      class="mb-12 lg:mb-6 nav-inset-button carousel"
-      data-flickity='{ "cellAlign": "left", "wrapAround": true, "draggable": false, "prevNextButtons": true , "imagesLoaded": true }'
-    >
-      <% campground.images.forEach(image=>{ %>
-      <div class="carousel-cell max-w-full w-full mr-2 rounded-lg">
-        <img
-          alt="<%= campground.title %> image"
-          class="w-full h-auto max-w-auto"
-          src="<%= image.path %>"
-        />
-      </div>
-      <% }) %>
-    </div>
-
-    <div class="text-gray-500 py-3 px-6 border-b border-gray-300">
-      <span class="font-semibold">Added by:</span> <%=
-      campground.author.username %>
-    </div>
-    <div class="p-6">
-      <h5 class="text-gray-900 text-xl font-medium mb-2">
-        <%= campground.title %>
-      </h5>
-      <span class="mb-2 text-gray-500"><%= campground.location %></span>
-      <span class="mx-2">|</span>
-      <span class="text-gray-600">£<%= campground.price %>/night</span>
-      <p class="text-gray-700 text-base my-3"><%= campground.description %></p>
-
-      <% if (currentUser && campground.author.equals(currentUser._id)) {%>
-      <div class="flex items-center justify-between">
-        <a href="/campgrounds/<%=campground._id%>/edit" class="btn bg-gray-400"
-          >Edit</a
-        >
-        <form
-          action="/campgrounds/<%=campground._id%>?_method=DELETE"
-          method="POST"
-        >
-          <button class="btn bg-red-600 hover:bg-red-800 text-white">
-            Delete
-          </button>
-        </form>
-      </div>
-      <% } %>
-    </div>
-  </div>
-
-  <div class="mx-auto md:w-3/4 lg:w-1/2">
-    <!-- map container -->
-    <div id="map" class="w-full h-[300px] m-3 lg:mt-0 mx-auto"></div>
-    <h3 class="text-xl font-semibold mt-3 mb-2 md:mt-0">Leave a Review</h3>
-    <hr class="hr" />
-    <% if (!currentUser) {%>
-    <div class="text-center mb-3">
-      <span class="text-lg text-gray-400"
-        >Please
-        <a href="/login" class="underline hover:text-orange-500"
-          ><em>login</em></a
-        >
-        to leave a review.</span
+<section class="mx-auto max-w-5xl p-[2%] mb-3 lg:mb-0">
+  <div class="lg:flex mb-5">
+    <div class="mx-auto mb-5 rounded-lg shadow-lg bg-white max-w-sm md:mb-2">
+      <!-- carousel slider -->
+      <div
+        id="thumbnail-slider"
+        class="mb-12 lg:mb-6 nav-inset-button carousel"
+        data-flickity='{ "cellAlign": "left", "wrapAround": true, "draggable": false, "prevNextButtons": true , "imagesLoaded": true }'
       >
-    </div>
-    <% } else { %>
-    <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
-      <fieldset class="flex starability-basic">
-        <legend>Rating:</legend>
-        <input
-          type="radio"
-          id="no-rate"
-          class="input-no-rate"
-          name="review[rating]"
-          value="0"
-          checked
-          aria-label="No rating."
-        />
-
-        <input type="radio" id="rate1" name="review[rating]" value="1" />
-        <label for="rate1">1 star.</label>
-
-        <input type="radio" id="rate2" name="review[rating]" value="2" />
-        <label for="rate2">2 stars.</label>
-
-        <input type="radio" id="rate3" name="review[rating]" value="3" />
-        <label for="rate3">3 stars.</label>
-
-        <input type="radio" id="rate4" name="review[rating]" value="4" />
-        <label for="rate4">4 stars.</label>
-
-        <input type="radio" id="rate5" name="review[rating]" value="5" />
-        <label for="rate5">5 stars.</label>
-
-        <span class="starability-focus-ring"></span>
-      </fieldset>
-      <div class="my-3 flex items-center gap-2">
-        <label class="self-start" for="review-body">Review</label>
-        <textarea
-          name="review[body]"
-          id="review-body"
-          cols="30"
-          rows="5"
-          class="border border-1 border-gray-500 rounded-lg focus:outline-none"
-        ></textarea>
+        <% campground.images.forEach(image=>{ %>
+        <div class="carousel-cell max-w-full w-full mr-2 rounded-lg">
+          <img
+            alt="<%= campground.title %> image"
+            class="w-full h-auto max-w-auto"
+            src="<%= image.path %>"
+          />
+        </div>
+        <% }) %>
       </div>
-      <div class="text-center">
-        <button class="btn bg-yellow-400 hover:bg-yellow-500">
-          Submit Review
-        </button>
+
+      <div class="text-gray-500 py-3 px-6 border-b border-gray-300">
+        <span class="font-semibold">Added by:</span> <%=
+        campground.author.username %>
       </div>
-    </form>
-    <% } %>
-    <div>
-      <h3 class="text-xl font-semibold mt-3 mb-2 md:mt-0">All Reviews</h3>
-      <hr class="hr" />
-      <% if (!campground.reviews.length) { %>
-      <div class="text-center mb-3">
-        <span class="text-lg text-gray-400">Wow, Such empty campground!</span>
-      </div>
-      <% } else { %> <% campground.reviews.map( review => {%>
-      <div class="md:flex justify-center mb-5">
-        <div
-          class="p-3 mx-auto mb-3 rounded-lg shadow-lg bg-white w-full max-w-sm"
-        >
-          <p class="mb-2">
-            <span class="font-semibold mr-1">Author:</span> <%=
-            review.author.username %>
-          </p>
-          <div class="flex items-center gap-2">
-            <span class="font-semibold">Rating:</span>
-            <p class="starability-result" data-rating="<%= review.rating %>">
-              Rated: <%= review.rating %> stars
-            </p>
-          </div>
-          <p class="my-3">
-            <span class="font-semibold mr-1">Review:</span> <%= review.body %>
-          </p>
-          <% if (currentUser && review.author.equals(currentUser._id)) {%>
+      <div class="p-6">
+        <h5 class="text-gray-900 text-xl font-medium mb-2">
+          <%= campground.title %>
+        </h5>
+        <span class="mb-2 text-gray-500"><%= campground.location %></span>
+        <span class="mx-2">|</span>
+        <span class="text-gray-600">£<%= campground.price %>/night</span>
+        <p class="text-gray-700 text-base my-3">
+          <%= campground.description %>
+        </p>
+
+        <% if (currentUser && campground.author.equals(currentUser._id)) {%>
+        <div class="flex items-center justify-between">
+          <a
+            href="/campgrounds/<%=campground._id%>/edit"
+            class="btn bg-gray-400"
+            >Edit</a
+          >
           <form
-            action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+            action="/campgrounds/<%=campground._id%>?_method=DELETE"
             method="POST"
           >
             <button class="btn bg-red-600 hover:bg-red-800 text-white">
-              Delete Review
+              Delete
             </button>
           </form>
-          <% } %>
         </div>
+        <% } %>
       </div>
-      <% }) %> <% } %>
+    </div>
+
+    <div class="mx-auto md:w-3/4 lg:w-1/2">
+      <!-- map container -->
+      <div id="map" class="w-full h-[300px] m-3 lg:mt-0 mx-auto"></div>
+      <h3 class="text-xl font-semibold mt-3 mb-2 md:mt-0">Leave a Review</h3>
+      <hr class="hr" />
+      <% if (!currentUser) {%>
+      <div class="text-center mb-3">
+        <span class="text-lg text-gray-400"
+          >Please
+          <a href="/login" class="underline hover:text-orange-500"
+            ><em>login</em></a
+          >
+          to leave a review.</span
+        >
+      </div>
+      <% } else { %>
+      <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
+        <fieldset class="flex starability-basic">
+          <legend>Rating:</legend>
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="review[rating]"
+            value="0"
+            checked
+            aria-label="No rating."
+          />
+
+          <input type="radio" id="rate1" name="review[rating]" value="1" />
+          <label for="rate1">1 star.</label>
+
+          <input type="radio" id="rate2" name="review[rating]" value="2" />
+          <label for="rate2">2 stars.</label>
+
+          <input type="radio" id="rate3" name="review[rating]" value="3" />
+          <label for="rate3">3 stars.</label>
+
+          <input type="radio" id="rate4" name="review[rating]" value="4" />
+          <label for="rate4">4 stars.</label>
+
+          <input type="radio" id="rate5" name="review[rating]" value="5" />
+          <label for="rate5">5 stars.</label>
+
+          <span class="starability-focus-ring"></span>
+        </fieldset>
+        <div class="my-3 flex items-center gap-2">
+          <label class="self-start" for="review-body">Review</label>
+          <textarea
+            name="review[body]"
+            id="review-body"
+            cols="30"
+            rows="5"
+            class="py-2 px-3 border border-1 border-gray-500 rounded-lg focus:outline-none"
+          ></textarea>
+        </div>
+        <div class="text-center">
+          <button class="btn bg-yellow-400 hover:bg-yellow-500">
+            Submit Review
+          </button>
+        </div>
+      </form>
+      <% } %>
+      <div>
+        <h3 class="text-xl font-semibold mt-3 mb-2 md:mt-0">All Reviews</h3>
+        <hr class="hr" />
+        <% if (!campground.reviews.length) { %>
+        <div class="text-center mb-3">
+          <span class="text-lg text-gray-400">Wow, Such empty campground!</span>
+        </div>
+        <% } else { %> <% campground.reviews.map( review => {%>
+        <div class="md:flex justify-center mb-5">
+          <div
+            class="p-3 mx-auto mb-3 rounded-lg shadow-lg bg-white w-full max-w-sm"
+          >
+            <p class="mb-2">
+              <span class="font-semibold mr-1">Author:</span> <%=
+              review.author.username %>
+            </p>
+            <div class="flex items-center gap-2">
+              <span class="font-semibold">Rating:</span>
+              <p class="starability-result" data-rating="<%= review.rating %>">
+                Rated: <%= review.rating %> stars
+              </p>
+            </div>
+            <p class="my-3">
+              <span class="font-semibold mr-1">Review:</span> <%= review.body %>
+            </p>
+            <% if (currentUser && review.author.equals(currentUser._id)) {%>
+            <form
+              action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+              method="POST"
+            >
+              <button class="btn bg-red-600 hover:bg-red-800 text-white">
+                Delete Review
+              </button>
+            </form>
+            <% } %>
+          </div>
+        </div>
+        <% }) %> <% } %>
+      </div>
     </div>
   </div>
-</div>
-<div class="text-center">
-  <a href="/campgrounds" class="btn">Back to All Campgrounds</a>
-</div>
+  <div class="text-center">
+    <a href="/campgrounds" class="btn">Back to All Campgrounds</a>
+  </div>
+</section>
 
 <!-- Flickity Carousel JavaScript -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>

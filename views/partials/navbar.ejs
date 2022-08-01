@@ -1,28 +1,30 @@
-<header class="text-center p-4 bg-orange-400 w-full">
+<header class="text-center p-4 bg-gray-200 w-full">
   <nav
-    class="md:max-w-4xl mx-auto md:flex md:gap-3 md:items-center md:justify-between"
+    class="max-w-5xl mx-auto md:flex md:gap-3 md:items-center md:justify-between"
   >
     <a href="/">
-      <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-0">
+      <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-0">
         YelpCamp
-      </h1>
+      </h3>
     </a>
-    <ul class="flex gap-5 items-center justify-evenly">
-      <li><a href="/" class="link transition">Home</a></li>
-      <li>
-        <a href="/campgrounds" class="link transition">All Campgrounds</a>
-      </li>
-      <li>
-        <a href="/campgrounds/new" class="link transition">New Campground</a>
-      </li>
-    </ul>
-    <ul class="flex gap-5 items-center justify-evenly">
-      <% if(!currentUser){ %>
-      <li><a href="/login">Login</a></li>
-      <li><a href="/signup">Signup</a></li>
-      <% } else { %>
-      <li><a href="/logout">Logout</a></li>
-      <% } %>
-    </ul>
+    <div>
+      <% if (!currentUser) { %> <% [ ["Home", "/"], ["All Campgrounds",
+      "/campgrounds"], ["Login", "/login"], ["Signup", "/signup"]].map(([name,
+      link])=>{ %>
+      <a
+        href="<%= link %>"
+        class="text-gray-700 hover:text-black transition duration-300 ease-in-out mr-1 hover:bg-white rounded-lg px-3 py-2"
+        ><%=name%></a
+      >
+      <% }) %> <% } else { %> <% [["Home", "/"], ["All Campgrounds",
+      "/campgrounds"],["New Campground", "/campgrounds/new"], ["Logout",
+      "/logout"]].map(([name, link])=>{ %>
+      <a
+        href="<%= link %>"
+        class="text-gray-700 hover:text-black transition duration-300 ease-in-out mr-1 hover:bg-white rounded-lg px-3 py-2"
+        ><%=name%></a
+      >
+      <% }) }%>
+    </div>
   </nav>
 </header>
