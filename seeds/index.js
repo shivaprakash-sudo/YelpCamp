@@ -23,20 +23,20 @@ const seedDb = async () => {
 
     const sample = array => array[Math.floor(Math.random() * array.length)];
 
-    const price = Math.floor(Math.random() * 20) + 10;
-
-    const random1000 = Math.floor(Math.random() * cities.length);
-
     try {
         // create a 100 random campgrounds
         for (let i = 0; i < 100; i++) {
+
+            const price = Math.floor(Math.random() * 20) + 10;
+            const random1000 = Math.floor(Math.random() * cities.length);
+
             const newCamp = new Campground({
                 author: "62ddfebac39b133f721f5ea7",
                 title: `${sample(descriptors)} ${sample(places)}`,
                 location: `${cities[random1000].city}, ${cities[random1000].state}`,
                 geometry: {
                     type: "Point",
-                    coordinates: [-113.1331, 47.0202]
+                    coordinates: [cities[random1000].longitude, cities[random1000].latitude]
                 },
                 images: [
                     {

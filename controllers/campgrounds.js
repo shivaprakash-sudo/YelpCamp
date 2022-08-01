@@ -19,7 +19,7 @@ const newCampgroundForm = (req, res) => {
 const createCampground = catchAsync(async (req, res) => {
     const campground = new Campground(req.body.campground);
 
-    const geoData = await geoCoder.forwardGeocode({
+    await geoCoder.forwardGeocode({
         query: req.body.campground.location,
         limit: 1
     })

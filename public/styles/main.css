@@ -675,6 +675,9 @@ video {
 .h-screen {
   height: 100vh;
 }
+.max-h-\[500px\] {
+  max-height: 500px;
+}
 .min-h-min {
   min-height: -webkit-min-content;
   min-height: -moz-min-content;
@@ -1046,10 +1049,6 @@ video {
 
   .lg\:w-1\/2 {
     width: 50%;
-  }
-
-  .lg\:w-full {
-    width: 100%;
   }
 
   .lg\:text-lg {

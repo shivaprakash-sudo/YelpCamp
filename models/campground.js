@@ -3,6 +3,12 @@ import Review from './review.js';
 
 const Schema = mongoose.Schema;
 
+const options = {
+    toJSON: {
+        virtuals: true
+    }
+}
+
 const ImageSchema = new Schema(
     {
         path: String,
@@ -48,8 +54,15 @@ const CampgroundSchema = new Schema(
                 ref: "Review"
             }
         ]
-    }
+    }, options
 );
+
+CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
+    return `
+    <strong><a href="/campgrounds/${this._id}">${this.title}</a><strong>
+    <p>${this.description.slice(0, 20)}...</p>`
+});
+
 
 CampgroundSchema.post("findOneAndDelete", async (doc) => {
     if (doc) {
