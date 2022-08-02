@@ -11,12 +11,16 @@ import { dirname } from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import methodOverride from "method-override";
-import ExpressError from "./utils/ExpressError.js";
 import session from 'express-session';
 import flash from "connect-flash";
 import passport from 'passport';
 import LocalStrategy from "passport-local";
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
+import MongoStore from 'connect-mongo';
+
 import User from "./models/user.js";
+import ExpressError from "./utils/ExpressError.js";
 
 // routers
 import campRouter from './routes/campgrounds.js';
@@ -32,9 +36,11 @@ const __dirname = dirname(__filename);
 const app = express();
 const PORT = 3000;
 
+const dbUrl = process.env.DATABASE_URL;
+
 // establish database connection and listen for server requests
 mongoose
-    .connect(process.env.DATABASE_URL, {
+    .connect(dbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -59,19 +65,78 @@ app.use(expressLayouts);
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
+app.use(mongoSanitize({
+    replaceWith: "_"
+}));
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: process.env.SESSION_SECRET
+    }
+});
+
+store.on("error", (err) => {
+    console.log("SESSION STORE ERROR!!!", err);
+});
 
 // create session config values and use them
 const sessionConfig = {
+    store,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true, //uncomment when pushing to production
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 };
 app.use(session(sessionConfig));
+
+const scriptSrcUrls = [
+    "https://api.tiles.mapbox.com/",
+    "https://unpkg.com/",
+    "https://api.mapbox.com/"
+];
+const styleSrcUrls = [
+    "https://api.mapbox.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://unpkg.com/"
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com/",
+    "https://*.tiles.mapbox.com/",
+    "https://events.mapbox.com/",
+    "https://unpkg.com/",
+
+];
+const fontSrcUrls = [];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`, //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
+                "https://images.unsplash.com/",
+                "https://cdn.pixabay.com/"
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
+
+// app.use(helmet());
 
 app.use(passport.initialize());
 app.use(passport.session());

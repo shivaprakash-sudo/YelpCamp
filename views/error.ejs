@@ -2,6 +2,8 @@
   <div class="text-center">
     <h4 class="text-2xl font-semibold">Sorry, <%= err.message %></h4>
     <p class="my-3">Please, check the link and try again.</p>
+    <% if (process.env.NODE_ENV !== "production") { %>
     <p class="text-gray-500"><%= err.stack %></p>
+    <% } %>
   </div>
 </div>
