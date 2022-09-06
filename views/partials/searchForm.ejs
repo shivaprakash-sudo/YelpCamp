@@ -1,0 +1,15 @@
+<form
+  class="flex gap-1 justify-between items-center"
+  action="<%= url %>"
+  method="GET"
+>
+  <input
+    type="search"
+    class="p-3 w-full border border-gray-500 rounded-lg outline-none focus:outline-none"
+    name="title"
+    placeholder="Campground title"
+    aria-label="Search"
+    value="<%= searchOptions.title %>"
+  />
+  <button class="btn lg:w-1/6" type="submit">Search</button>
+</form>

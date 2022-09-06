@@ -2,45 +2,8 @@
 
 <div class="mx-[5%] md:mx-auto md:max-w-5xl">
   <h3 class="text-3xl my-3 text-center">All Campgrounds</h3>
-  <div>
-    <% for (let campground of campgrounds){%>
-    <div class="flex justify-center">
-      <div
-        class="w-full my-1 min-h-min md:flex md:max-w-xl rounded-lg bg-white shadow-lg hover:shadow-2xl"
-      >
-        <% if (campground.images.length) { %>
-        <img
-          class="w-full sm:h-80 md:h-auto object-cover md:w-56 rounded-t-lg md:rounded-none md:rounded-l-lg"
-          src="<%= campground.images[0].path %> "
-          alt="Camp Image"
-        />
-        <% } else { %>
-        <div
-          class="sm:h-80 md:h-auto object-cover md:w-56 rounded-t-lg md:rounded-none md:rounded-l-lg flex items-center justify-center"
-        >
-          No Images
-        </div>
-        <% } %>
-        <div class="p-6 flex flex-col justify-start">
-          <h5 class="text-gray-900 text-xl font-medium mb-2">
-            <a href="/campgrounds/<%= campground._id %>"
-              ><%= campground.title %></a
-            >
-          </h5>
-          <p class="text-gray-500 text-xs"><%= campground.location %></p>
-          <p class="text-gray-700 text-base mb-4">
-            <%= campground.description %>
-          </p>
-          <a
-            href="/campgrounds/<%= campground._id %>"
-            class="btn mb-0 text-center"
-            >Visit <%= campground.title %>
-          </a>
-        </div>
-      </div>
-    </div>
-    <% }%>
-  </div>
+  <%- include("../partials/searchForm", {url:"/campgrounds"}) %>
+  <div><%- include("../partials/cardGrid", {campgrounds}) %></div>
 </div>
 
 <!-- mapbox -->
