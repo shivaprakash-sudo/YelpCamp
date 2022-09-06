@@ -12,4 +12,4 @@
 
 - [Live demo](https://yelp-camp-appp.herokuapp.com/)
 
-![Home page](/images/home.jpg)
+![Home page](/images/home.png)
