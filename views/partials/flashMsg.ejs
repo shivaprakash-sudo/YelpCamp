@@ -1,6 +1,6 @@
 <div class="text-center">
   <% if(success && success.length) {%>
-  <div class="my-3 text-green-700">
+  <div class="message my-3 text-green-700">
     <%= success %>
     <button
       type="button"
@@ -10,7 +10,7 @@
     </button>
   </div>
   <% } %> <% if(error && error.length) {%>
-  <div class="my-3 text-red-700">
+  <div class="message my-3 text-red-700">
     <%= error %>
     <button
       type="button"
@@ -21,3 +21,15 @@
   </div>
   <% } %>
 </div>
+
+<script>
+  const closeBtns = document.querySelectorAll(".close");
+  const messages = document.querySelectorAll(".message");
+  closeBtns.forEach((btn) => {
+    btn.onclick = () => {
+      messages.forEach((message) => {
+        message.style.display = "none";
+      });
+    };
+  });
+</script>
