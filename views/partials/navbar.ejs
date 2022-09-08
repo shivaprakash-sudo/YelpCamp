@@ -1,5 +1,7 @@
 <header class="text-center py-6 bg-gray-200 w-full">
-  <nav class="max-w-5xl mx-auto md:flex md:gap-3 md:items-center md:justify-between">
+  <nav
+    class="max-w-5xl mx-auto md:flex md:gap-3 md:items-center md:justify-between"
+  >
     <a href="/">
       <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-0">
         YelpCamp
@@ -15,8 +17,8 @@
         ><%=name%></a
       >
       <% }) %> <% } else { %> <% [["Home", "/"], ["All Campgrounds",
-      "/campgrounds"],["New Campground", "/campgrounds/new"], ["Logout",
-      "/logout"]].map(([name, link])=>{ %>
+      "/campgrounds"], ["New Campground", "/campgrounds/new"], ["Profile",
+      "/profile"], ["Logout", "/logout"]].map(([name, link])=>{ %>
       <a
         href="<%= link %>"
         class="text-gray-700 hover:text-black transition duration-300 ease-in-out mr-1 hover:bg-white rounded-lg px-3 py-2"
