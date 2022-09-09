@@ -1,5 +1,6 @@
 import catchAsync from "../utils/catchAsync.js";
 import User from "../models/user.js";
+import Campground from "../models/campground.js";
 
 const signupForm = (req, res) => {
   res.render("users/signup");
@@ -41,9 +42,13 @@ const logout = (req, res, next) => {
   });
 };
 
-const profile = (req, res) => {
+const profile = async (req, res) => {
   //   console.log(req.user);
-  res.render("users/profile", { user: req.user });
+  const author = req.session.passport.user;
+  const campgrounds = await Campground.find({
+    author,
+  });
+  res.render("users/profile", { user: req.user, campgrounds });
 };
 
 export { signupForm, createUser, loginForm, login, logout, profile };
