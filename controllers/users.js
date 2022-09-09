@@ -43,8 +43,8 @@ const logout = (req, res, next) => {
 };
 
 const profile = async (req, res) => {
-  //   console.log(req.user);
-  const author = req.session.passport.user;
+  // console.log(req.user);
+  const author = req.user.id;
   const campgrounds = await Campground.find({
     author,
   });
