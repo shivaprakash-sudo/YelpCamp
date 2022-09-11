@@ -1,3 +1,10 @@
-<h1 class="flex justify-center">My Profile</h1>
-<p class="flex justify-center">username: <%= user.username %></p>
-<p class="flex justify-center">My Campgrounds: <%= campgrounds.length %></p>
+<section>
+  <h1 class="text-3xl text-center">My Profile</h1>
+  <p class="flex justify-center">Username: <%= user.username %></p>
+</section>
+<section class="mx-[5%] md:mx-auto md:max-w-5xl">
+  <h3 class="text-2xl my-3 text-center">My Campgrounds</h3>
+  <p class="text-center text-gray-500">Total: <%= campgrounds.length %></p>
+  <%- include("../partials/searchForm", {url:"/profile"}) %>
+  <div><%- include("../partials/cardGrid", {campgrounds}) %></div>
+</section>

@@ -45,10 +45,20 @@ const logout = (req, res, next) => {
 const profile = async (req, res) => {
   // console.log(req.user);
   const author = req.user.id;
-  const campgrounds = await Campground.find({
+  let query = Campground.find({
     author,
-  });
-  res.render("users/profile", { user: req.user, campgrounds });
+  }).sort({ $natural: -1 });
+
+  // for search box
+  const title = req.query.title;
+  if (title !== null && title !== "") {
+    query = query.regex("title", new RegExp(title, "i"));
+  }
+
+  const campgrounds = await query.exec();
+  const searchOptions = req.query;
+
+  res.render("users/profile", { user: req.user, campgrounds, searchOptions });
 };
 
 export { signupForm, createUser, loginForm, login, logout, profile };
