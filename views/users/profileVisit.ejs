@@ -1,0 +1,9 @@
+<section>
+  <h1 class="text-3xl text-center"><%= username %>'s profile</h1>
+</section>
+<section class="mx-[5%] md:mx-auto md:max-w-5xl">
+  <h3 class="text-2xl my-3 text-center">Campgrounds</h3>
+  <p class="text-center text-gray-500">Total: <%= campgrounds.length %></p>
+  <%- include("../partials/searchForm", {url:"/profile"}) %>
+  <div><%- include("../partials/cardGrid", {campgrounds}) %></div>
+</section>
