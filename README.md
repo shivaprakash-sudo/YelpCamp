@@ -12,6 +12,6 @@
 
 - Feature to search through various campgrounds sorted from new to old.
 
-- [Live demo](https://yelp-camp-appp.herokuapp.com/)
+- [Live demo](https://myyelpcamp.cyclic.app)
 
 ![Home page](/images/home.png)
